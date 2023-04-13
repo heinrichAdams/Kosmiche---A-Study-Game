@@ -14,16 +14,14 @@ class Player(pygame.sprite.Sprite):
         self.load_player_assets()
 
         self.current_state = "IDLE_DOWN"
-        self.frame_index = 0
         self.inventory_slot_selected = 0
-        self.inventory = {0: ["HOE"], 1: ["WATER_CAN"], 2: [], 3: [],
-                          4: [], 5: [], 6: [], 7: [],
-                          8: []}
+        self.inventory = {0: "HOE", 1: "WATER_CAN", 2: "SEED_POTATO", 3: "SEED_TOMATO", 4: "SEED_PUMPKIN", 5: "",
+                          6: "", 7: ""}
         self.mouse_button_down = False
         self.speed = 100
         self.timer_list = {"USE_ITEM": Timer(350, self.use_item)}
 
-
+        self.frame_index = 0
         self.image = self.animations[self.current_state][self.frame_index]
         self.rect = self.image.get_rect(center=position)
 
@@ -31,9 +29,11 @@ class Player(pygame.sprite.Sprite):
         self.position = pygame.math.Vector2(self.rect.center)
 
     def use_item(self):
-        print("Try To Use Item")
 
+        # USE SEED
 
+        if not self.inventory[self.inventory_slot_selected].find("SEED"):
+            print(f"Trying to plant {self.inventory[self.inventory_slot_selected]}")
 
     def load_player_assets(self):
         self.animations = {"UP": [], "DOWN": [], "LEFT": [], "RIGHT": [],
@@ -46,6 +46,9 @@ class Player(pygame.sprite.Sprite):
         print(self.animations)
 
     def get_current_state(self):
+
+        # IDLE
+
         if self.move_direction.magnitude() == 0:
             if self.current_state == "UP":
                 self.current_state = "IDLE_UP"
@@ -55,7 +58,10 @@ class Player(pygame.sprite.Sprite):
                 self.current_state = "IDLE_LEFT"
             elif self.current_state == "RIGHT":
                 self.current_state = "IDLE_RIGHT"
-        if self.timer_list["USE_ITEM"].active:
+
+        # USE HOE
+
+        if self.timer_list["USE_ITEM"].active and self.inventory[self.inventory_slot_selected] == "HOE":
             if self.current_state == "IDLE_UP":
                 self.current_state = "HOE_UP"
             elif self.current_state == "IDLE_DOWN":
@@ -72,6 +78,27 @@ class Player(pygame.sprite.Sprite):
             elif self.current_state == "HOE_LEFT":
                 self.current_state = "IDLE_LEFT"
             elif self.current_state == "HOE_RIGHT":
+                self.current_state = "IDLE_RIGHT"
+
+        # USE WATER CAN
+
+        if self.timer_list["USE_ITEM"].active and self.inventory[self.inventory_slot_selected] == "WATER_CAN":
+            if self.current_state == "IDLE_UP":
+                self.current_state = "WATER_UP"
+            elif self.current_state == "IDLE_DOWN":
+                self.current_state = "WATER_DOWN"
+            elif self.current_state == "IDLE_LEFT":
+                self.current_state = "WATER_LEFT"
+            elif self.current_state == "IDLE_RIGHT":
+                self.current_state = "WATER_RIGHT"
+        else:
+            if self.current_state == "WATER_UP":
+                self.current_state = "IDLE_UP"
+            elif self.current_state == "WATER_DOWN":
+                self.current_state = "IDLE_DOWN"
+            elif self.current_state == "WATER_LEFT":
+                self.current_state = "IDLE_LEFT"
+            elif self.current_state == "WATER_RIGHT":
                 self.current_state = "IDLE_RIGHT"
 
     def animate(self, delta_time):
@@ -135,6 +162,13 @@ class Player(pygame.sprite.Sprite):
 
             if event.type == pygame.MOUSEBUTTONDOWN and self.mouse_button_down:
                 self.mouse_button_down = False
+
+            if event.type == pygame.MOUSEWHEEL:
+                self.inventory_slot_selected += event.y
+                if self.inventory_slot_selected < 0:
+                    self.inventory_slot_selected = 7
+                if self.inventory_slot_selected > 7:
+                    self.inventory_slot_selected = 0
 
     def update_timers(self):
         for timer in self.timer_list.values():

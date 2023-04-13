@@ -14,3 +14,4 @@ A - left
 D - right
 
 LMB - use
+Mouse Scroll - navigate inventory
