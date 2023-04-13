@@ -1,6 +1,4 @@
 import pygame
-import sys
-
 from level import Level
 from settings import *
 
@@ -18,10 +16,6 @@ class Game:
 
     def run(self):
         while self.running:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
             delta_time = self.clock.tick() / 1000
             self.level.run(delta_time)
             pygame.display.update()

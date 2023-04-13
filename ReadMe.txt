@@ -12,3 +12,5 @@ W - up
 S - down
 A - left
 D - right
+
+LMB - use
