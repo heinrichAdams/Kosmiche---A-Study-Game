@@ -15,7 +15,7 @@ class Player(pygame.sprite.Sprite):
 
         self.current_state = "IDLE_DOWN"
         self.inventory_slot_selected = 0
-        self.inventory = {0: "HOE", 1: "WATER_CAN", 2: "SEED_POTATO", 3: "SEED_TOMATO", 4: "SEED_PUMPKIN", 5: "",
+        self.inventory = {0: "HOE", 1: "WATER_CAN", 2: "SEED_POTATO", 3: "SEED_SUN", 4: "SEED_PUMPKIN", 5: "",
                           6: "", 7: ""}
         self.mouse_button_down = False
         self.speed = 100
@@ -163,12 +163,7 @@ class Player(pygame.sprite.Sprite):
             if event.type == pygame.MOUSEBUTTONDOWN and self.mouse_button_down:
                 self.mouse_button_down = False
 
-            if event.type == pygame.MOUSEWHEEL:
-                self.inventory_slot_selected += event.y
-                if self.inventory_slot_selected < 0:
-                    self.inventory_slot_selected = 7
-                if self.inventory_slot_selected > 7:
-                    self.inventory_slot_selected = 0
+
 
     def update_timers(self):
         for timer in self.timer_list.values():

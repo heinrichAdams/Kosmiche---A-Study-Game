@@ -7,13 +7,18 @@ from settings import *
 
 class Hud:
     def __init__(self, player):
+
+        # Busy implementing new gui overlay
+
+        self.main_gui_overlay = None
+
         self.pumpkin_seed_image = None
-        self.beet_seed_image = None
+        self.sun_seed_image = None
         self.potato_seed_image = None
         self.water_can_image = None
         self.hoe_image = None
-        self.inventory_slot_selected_image = None
-        self.inventory_slot_unselected_image = None
+        self.inventory_slot_empty_image = None
+
 
         self.hud_surface = pygame.display.get_surface()
         self.player = player
@@ -25,29 +30,22 @@ class Hud:
         print(f"PUMPKIN SEED : {self.pumpkin_seed_image}")
 
     def load_hud_assets(self):
-        self.inventory_slot_unselected_image = pygame.image.load(
-            "../Graphics/UI/INVENTORY_SLOT_UNSELECTED/0.png").convert_alpha()
-        self.inventory_slot_unselected_image = pygame.transform.rotozoom(self.inventory_slot_unselected_image, 0, 2)
+        self.main_gui_overlay = pygame.image.load(
+            "../Graphics/UI/HUD/MAIN_GUI_OVERLAY/0.png").convert_alpha()
 
-        self.inventory_slot_selected_image = pygame.image.load(
-            "../Graphics/UI/INVENTORY_SLOT_SELECTED/0.png").convert_alpha()
-        self.inventory_slot_selected_image = pygame.transform.rotozoom(self.inventory_slot_selected_image, 0, 2)
+        self.main_gui_overlay = pygame.transform.rotozoom(self.main_gui_overlay, 0, 1.25)
 
-        self.hoe_image = pygame.image.load("../Graphics/UI/ITEM_HOE/0.png").convert_alpha()
-        self.water_can_image = pygame.image.load("../Graphics/UI/ITEM_WATER_CAN/0.png").convert_alpha()
-        self.potato_seed_image = pygame.image.load("../Graphics/UI/ITEM_POTATO_SEED/0.png").convert_alpha()
-        self.beet_seed_image = pygame.image.load("../Graphics/UI/ITEM_BEET_SEED/0.png").convert_alpha()
-        self.pumpkin_seed_image = pygame.image.load("../Graphics/UI/ITEM_PUMPKIN_SEED/0.png").convert_alpha()
+        self.inventory_slot_empty_image = pygame.image.load(
+            "../Graphics/UI/HUD/INVENTORY_SLOT_EMPTY/0.png").convert_alpha()
+
+
+        self.hoe_image = pygame.image.load("../Graphics/UI/HUD/ITEM_HOE/0.png").convert_alpha()
+        self.water_can_image = pygame.image.load("../Graphics/UI/HUD/ITEM_WATER_CAN/0.png").convert_alpha()
+        self.potato_seed_image = pygame.image.load("../Graphics/UI/HUD/ITEM_POTATO_SEED/0.png").convert_alpha()
+        self.sun_seed_image = pygame.image.load("../Graphics/UI/HUD/ITEM_SUN_SEED/0.png").convert_alpha()
+        self.pumpkin_seed_image = pygame.image.load("../Graphics/UI/HUD/ITEM_PUMPKIN_SEED/0.png").convert_alpha()
 
     def display_inventory(self):
-        for slot in self.inventory.keys():
-            if slot == self.player.inventory_slot_selected:
-                self.inventory[slot] = self.inventory_slot_selected_image
-            else:
-                self.inventory[slot] = self.inventory_slot_unselected_image
-        i = 0
-        for slot in self.inventory.values():
-            self.hud_surface.blit(slot, self.inventory_slot_positions[i])
-            i += 1
-
+        self.hud_surface.blit(self.main_gui_overlay, (0,0))
+        print("show inventory")
 # >>>>>>>>>>>>>>>>>> HUD CLASS
