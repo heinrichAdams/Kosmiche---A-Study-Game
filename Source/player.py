@@ -163,7 +163,12 @@ class Player(pygame.sprite.Sprite):
             if event.type == pygame.MOUSEBUTTONDOWN and self.mouse_button_down:
                 self.mouse_button_down = False
 
-
+            if event.type == pygame.MOUSEWHEEL:
+                self.inventory_slot_selected += event.y
+                if self.inventory_slot_selected < 0:
+                    self.inventory_slot_selected = 7
+                if self.inventory_slot_selected > 7:
+                    self.inventory_slot_selected = 0
 
     def update_timers(self):
         for timer in self.timer_list.values():
