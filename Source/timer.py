@@ -18,6 +18,7 @@ class Timer:
     def end(self):
         self.active = False
         self.start_time = 0
+        return True
 
     def update(self):
         current_time = pygame.time.get_ticks()

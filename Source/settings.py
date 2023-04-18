@@ -22,3 +22,14 @@ LAYER = {
     "PRODUCE": 9,
     "RAIN": 10
 }
+
+
+# Dialog Positions
+QUESTION_CARD = (545, 245)
+TRUE_SELECTED = (557, 495)
+FALSE_SELECTED = (643, 495)
+
+
+# Image Sizes
+FALSE_BUTTON_SIZE = (84, 26)
+TRUE_BUTTON_SIZE = (84, 26)

@@ -1,6 +1,4 @@
 import pygame
-
-
 from utility import *
 from settings import *
 
@@ -9,8 +7,6 @@ from settings import *
 
 class Hud:
     def __init__(self, player):
-
-        # Busy implementing new gui overlay
 
         self.main_gui_overlay = None
 
@@ -21,15 +17,13 @@ class Hud:
         self.hoe_image = None
         self.inventory_slot_empty_image = None
 
-
+        # HUD
         self.hud_surface = pygame.display.get_surface()
         self.player = player
         self.load_hud_assets()
         self.inventory = {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0}
         self.inventory_slot_positions = [(445, 658), (486, 658), (527, 658), (568, 658), (609, 658)
                                          , (650, 658), (691, 658), (732, 658)]
-
-        print(f"PUMPKIN SEED : {self.pumpkin_seed_image}")
 
     def load_hud_assets(self):
         self.main_gui_overlay = pygame.image.load(

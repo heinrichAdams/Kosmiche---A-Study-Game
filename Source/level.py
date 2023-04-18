@@ -2,6 +2,7 @@ import pygame
 from settings import *
 from player import Player
 from hud import Hud
+from question_dialog import QuestionDialog
 from sprites import Base
 from pytmx.util_pygame import load_pygame
 
@@ -14,6 +15,12 @@ class Level:
         self.master_sprite_group = CameraGroup()
         self.setup()
         self.hud = Hud(self.current_player)
+        self.question_dialog = QuestionDialog(self.current_player)
+
+    def popups(self):
+        if self.current_player.in_dialogue == True:
+            self.question_dialog.display_dialog()
+
     def setup(self):
         Base((0, 0),
              pygame.image.load("../Graphics/Environment/levels/ground.png").convert_alpha(),
@@ -26,6 +33,7 @@ class Level:
         self.master_sprite_group.draw(self.current_player)
         self.master_sprite_group.update(delta_time)
         self.hud.display_inventory()
+        self.popups()
 
 
 # >>>>>>>>>>>>>>>>>> LEVEL CLASS

@@ -11,6 +11,7 @@ class Player(pygame.sprite.Sprite):
 
     def __init__(self, position, group):
         super().__init__(group)
+        self.animations = None
         self.load_player_assets()
 
         self.current_state = "IDLE_DOWN"
@@ -20,6 +21,13 @@ class Player(pygame.sprite.Sprite):
         self.mouse_button_down = False
         self.speed = 100
         self.timer_list = {"USE_ITEM": Timer(350, self.use_item)}
+
+        # Question Dialog
+        self.in_dialogue = False
+        self.mouse_above_true = False
+        self.mouse_above_false = False
+        self.selected_true = False
+        self.selected_false = False
 
         self.frame_index = 0
         self.image = self.animations[self.current_state][self.frame_index]
@@ -138,6 +146,11 @@ class Player(pygame.sprite.Sprite):
                     self.current_state = "RIGHT"
                     self.move_direction.x = 1
 
+                if event.key == pygame.K_SPACE:
+                    self.in_dialogue = True
+                    print(f"In Dialogue = {self.in_dialogue}")
+                    print("Question Dialogue pops up...")
+
             if event.type == pygame.KEYUP and not self.timer_list["USE_ITEM"].active:
                 # UP
                 if event.key == pygame.K_w:
@@ -154,15 +167,45 @@ class Player(pygame.sprite.Sprite):
 
             # MOUSE INPUTS
 
-            if event.type == pygame.MOUSEBUTTONDOWN and not self.mouse_button_down:
+            if event.type == pygame.MOUSEBUTTONDOWN and not self.mouse_button_down and not self.in_dialogue:
                 if pygame.mouse.get_pressed() == (True, False, False):
                     self.timer_list["USE_ITEM"].start()
                     self.move_direction = pygame.math.Vector2()
                     self.frame_index = 0
                 self.mouse_button_down = True
 
-            if event.type == pygame.MOUSEBUTTONDOWN and self.mouse_button_down:
+            if event.type == pygame.MOUSEBUTTONDOWN and self.mouse_button_down and not self.in_dialogue:
                 self.mouse_button_down = False
+
+            if self.in_dialogue:
+                mousex = pygame.mouse.get_pos()[0]
+                mousey = pygame.mouse.get_pos()[1]
+
+                # Get Position of true button image and check if mouse is above it
+
+                if (
+                        ((mousex >= TRUE_SELECTED[0]) and
+                         (mousex <= TRUE_SELECTED[0] + TRUE_BUTTON_SIZE[0]))
+                        and
+                        ((mousey >= TRUE_SELECTED[1]) and
+                         (mousey <= TRUE_SELECTED[1] + TRUE_BUTTON_SIZE[1]))
+                ):
+                    self.mouse_above_true = True
+                else:
+                    self.mouse_above_true = False
+
+                # Get Position of false button image and check if mouse is above it
+
+                if (
+                        ((mousex >= FALSE_SELECTED[0]) and
+                         (mousex <= FALSE_SELECTED[0] + FALSE_BUTTON_SIZE[0]))
+                        and
+                        ((mousey >= FALSE_SELECTED[1]) and
+                         (mousey <= FALSE_SELECTED[1] + FALSE_BUTTON_SIZE[1]))
+                ):
+                    self.mouse_above_false = True
+                else:
+                    self.mouse_above_false = False
 
             if event.type == pygame.MOUSEWHEEL:
                 self.inventory_slot_selected += event.y
