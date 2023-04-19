@@ -22,10 +22,15 @@ class Level:
             self.question_dialog.display_dialog()
 
     def setup(self):
-        Base((0, 0),
-             pygame.image.load("../Graphics/Environment/levels/ground.png").convert_alpha(),
-             self.master_sprite_group,
-             LAYER["GROUND"])
+        tmx_data = load_pygame("../Graphics/Tiled/Data/tsx/Kosmiche Level.tmx")
+
+        for x, y, surface in tmx_data.get_layer_by_name("Ground").tiles():
+            Base((x * TILE_SIZE, y * TILE_SIZE), surface, self.master_sprite_group, LAYER["GROUND"])
+
+        # Base((0, 0),
+        #      pygame.image.load("../Graphics/Environment/levels/ground.png").convert_alpha(),
+        #      self.master_sprite_group,
+        #      LAYER["GROUND"])
         self.current_player = Player((640, 360), self.master_sprite_group)
 
     def run(self, delta_time):
