@@ -1,0 +1,34 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "",
+    "expandedProjectPaths": [
+    ],
+    "fileStates": {
+        "D:/GLYNDWR_UNIVERSITY/COM547 Serious Games/Tiled/Data/tsx/FarmingTileset.tsx": {
+            "dynamicWrapping": false
+        },
+        "D:/GLYNDWR_UNIVERSITY/COM547 Serious Games/Tiled/Data/tsx/Vegetation.tsx": {
+            "dynamicWrapping": true
+        }
+    },
+    "last.imagePath": "D:/GLYNDWR_UNIVERSITY/COM547 Serious Games/Environment/Farming/Trees and plants",
+    "map.height": 40,
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 64,
+    "map.tileWidth": 64,
+    "map.width": 60,
+    "openFiles": [
+    ],
+    "project": "Kosmiche.tiled-project",
+    "recentFiles": [
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 64,
+        "width": 64
+    },
+    "tileset.type": 1
+}
