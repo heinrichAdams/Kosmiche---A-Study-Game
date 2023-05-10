@@ -12,3 +12,9 @@ def load_folder(file_path):
             surface_array.append(surface)
 
     return surface_array
+
+
+def parse_txt(file_path):
+    with open(file_path) as text:
+        line = text.readline()
+    return line

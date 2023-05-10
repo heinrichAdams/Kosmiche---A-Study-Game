@@ -5,9 +5,10 @@ import pygame
 
 class Timer:
 
-    def __init__(self, duration, function=None):
+    def __init__(self, duration, function=None, end_function=None):
         self.duration = duration
         self.function = function
+        self.end_function = end_function
         self.start_time = 0
         self.active = False
 
@@ -16,6 +17,7 @@ class Timer:
         self.start_time = pygame.time.get_ticks()
 
     def end(self):
+        self.end_function()
         self.active = False
         self.start_time = 0
         return True

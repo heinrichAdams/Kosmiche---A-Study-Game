@@ -20,7 +20,8 @@ class Player(pygame.sprite.Sprite):
                           6: "", 7: ""}
         self.mouse_button_down = False
         self.speed = 100
-        self.timer_list = {"USE_ITEM": Timer(350, self.use_item)}
+        self.timer_list = {"USE_ITEM": Timer(350, self.use_item),
+                           "SHOW_ANSWER": Timer(2500, self.provide_answer_feedback, self.stop_showing_feedback)}
 
         # Question Dialog
         self.in_dialogue = False
@@ -28,6 +29,9 @@ class Player(pygame.sprite.Sprite):
         self.mouse_above_false = False
         self.selected_true = False
         self.selected_false = False
+        self.clicked_on_false = False
+        self.clicked_on_true = False
+        self.showing_answer_card = False
 
         self.frame_index = 0
         self.image = self.animations[self.current_state][self.frame_index]
@@ -36,6 +40,17 @@ class Player(pygame.sprite.Sprite):
 
         self.move_direction = pygame.math.Vector2(0, 0)
         self.position = pygame.math.Vector2(self.rect.center)
+
+    def provide_answer_feedback(self):
+        self.showing_answer_card = True
+
+    def stop_showing_feedback(self):
+        self.showing_answer_card = False
+        self.in_dialogue = False
+        self.selected_false = False
+        self.selected_true = False
+        self.clicked_on_true = False
+        self.clicked_on_false = False
 
     def use_item(self):
 
@@ -191,6 +206,16 @@ class Player(pygame.sprite.Sprite):
                          (mousey <= TRUE_SELECTED[1] + TRUE_BUTTON_SIZE[1]))
                 ):
                     self.mouse_above_true = True
+
+                    if event.type == pygame.MOUSEBUTTONDOWN and not self.mouse_button_down:
+                        if pygame.mouse.get_pressed() == (True, False, False):
+                            self.clicked_on_true = True
+                            self.timer_list["SHOW_ANSWER"].start()
+                        self.mouse_button_down = True
+
+                        if event.type == pygame.MOUSEBUTTONDOWN and self.mouse_button_down:
+                            self.mouse_button_down = False
+
                 else:
                     self.mouse_above_true = False
 
@@ -204,8 +229,22 @@ class Player(pygame.sprite.Sprite):
                          (mousey <= FALSE_SELECTED[1] + FALSE_BUTTON_SIZE[1]))
                 ):
                     self.mouse_above_false = True
+
+                    if event.type == pygame.MOUSEBUTTONDOWN and not self.mouse_button_down:
+                        if pygame.mouse.get_pressed() == (True, False, False):
+                            self.clicked_on_false = True
+                            self.timer_list["SHOW_ANSWER"].start()
+                        self.mouse_button_down = True
+
+                        if event.type == pygame.MOUSEBUTTONDOWN and self.mouse_button_down:
+                            self.mouse_button_down = False
+
                 else:
                     self.mouse_above_false = False
+
+
+
+
 
             if event.type == pygame.MOUSEWHEEL:
                 self.inventory_slot_selected += event.y
@@ -218,6 +257,7 @@ class Player(pygame.sprite.Sprite):
         for timer in self.timer_list.values():
             if timer.active:
                 timer.update()
+
 
     def movement(self, delta_time):
         if self.move_direction.magnitude() > 0:
