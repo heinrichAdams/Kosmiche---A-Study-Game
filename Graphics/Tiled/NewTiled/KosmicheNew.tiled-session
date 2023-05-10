@@ -7,8 +7,11 @@
     "expandedProjectPaths": [
     ],
     "fileStates": {
+        "Foliage.tsx": {
+            "dynamicWrapping": true
+        }
     },
-    "last.imagePath": "C:/Users/stryd/Desktop/Serious Game Kosmiche/main/Kosmiche---A-Study-Game/Graphics/Environment/Farming/Ground",
+    "last.imagePath": "C:/Users/stryd/Desktop/Serious Game Kosmiche/main/Kosmiche---A-Study-Game/Graphics/Environment/House/House",
     "map.height": 40,
     "map.lastUsedFormat": "tmx",
     "map.tileHeight": 64,
@@ -23,5 +26,6 @@
     "tileset.tileSize": {
         "height": 64,
         "width": 64
-    }
+    },
+    "tileset.type": 1
 }
