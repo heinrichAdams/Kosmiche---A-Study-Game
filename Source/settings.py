@@ -15,12 +15,16 @@ LAYER = {
     "FERTILE_GROUND": 2,
     "DAMP_GROUND": 3,
     "WET_GROUND": 4,
-    "HOUSE_LEVEL_1": 5,
-    "PLANT": 6,
-    "MAIN": 7,
-    "HOUSE_LEVEL_2": 8,
-    "PRODUCE": 9,
-    "RAIN": 10
+    "PATH": 5,
+    "HOUSE_LEVEL_1": 6,
+    "HOUSE_LEVEL_2": 7,
+    "HOUSE_LEVEL_3": 8,
+    "PLANT": 9,
+    "MAIN": 10,
+    "FOLIAGE": 11,
+    "HOUSE_LEVEL_4": 12,
+    "PRODUCE": 13,
+    "RAIN": 14
 }
 
 

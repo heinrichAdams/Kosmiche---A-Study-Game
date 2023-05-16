@@ -19,7 +19,7 @@ class Player(pygame.sprite.Sprite):
         self.inventory = {0: "HOE", 1: "WATER_CAN", 2: "SEED_POTATO", 3: "SEED_SUN", 4: "SEED_PUMPKIN", 5: "",
                           6: "", 7: ""}
         self.mouse_button_down = False
-        self.speed = 100
+        self.speed = 400
         self.timer_list = {"USE_ITEM": Timer(350, self.use_item),
                            "SHOW_ANSWER": Timer(2500, self.provide_answer_feedback, self.stop_showing_feedback)}
 
