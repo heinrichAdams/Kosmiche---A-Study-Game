@@ -14,6 +14,7 @@ class Level:
     def __init__(self):
         self.main_display_surface = pygame.display.get_surface()
         self.master_sprite_group = CameraGroup()
+        self.collision_sprite_group = pygame.sprite.Group()
         self.setup()
         self.hud = Hud(self.current_player)
         self.question_dialog = QuestionDialog(self.current_player)
@@ -39,6 +40,7 @@ class Level:
 
         for obj in tmx_data.objects:
             print(obj.name + " STARTING")
+
             # Building Floors
 
             if obj.type == "BuildingFloorPlan":
@@ -48,6 +50,7 @@ class Level:
                 if obj.name == "Shop":
                     Base((obj.x, obj.y), obj.image, self.master_sprite_group,
                          LAYER["HOUSE_LEVEL_1"])
+
 
             # Building Floor Objects
 
@@ -59,10 +62,10 @@ class Level:
                     Base((obj.x, obj.y), obj.image, self.master_sprite_group,
                          LAYER["HOUSE_LEVEL_2"])
                 if obj.name == "BookShelves":
-                    Base((obj.x, obj.y), obj.image, self.master_sprite_group,
+                    Base((obj.x, obj.y), obj.image, [self.master_sprite_group, self.collision_sprite_group],
                          LAYER["HOUSE_LEVEL_2"])
                 if obj.name == "Fireplace":
-                    Base((obj.x, obj.y), obj.image, self.master_sprite_group,
+                    Base((obj.x, obj.y), obj.image, [self.master_sprite_group, self.collision_sprite_group],
                          LAYER["HOUSE_LEVEL_2"])
             print(obj.name + " SUCCEEDED")
 
@@ -70,56 +73,63 @@ class Level:
 
             if obj.type == "Furniture":
                 if obj.name == "Bed":
-                    Base((obj.x, obj.y), obj.image, self.master_sprite_group,
-                         LAYER["HOUSE_LEVEL_3"])
+                    Base((obj.x, obj.y), obj.image, [self.master_sprite_group, self.collision_sprite_group],
+                         LAYER["HOUSE_LEVEL_2"])
                 if obj.name == "SideTable":
-                    Base((obj.x, obj.y), obj.image, self.master_sprite_group,
-                         LAYER["HOUSE_LEVEL_3"])
+                    Base((obj.x, obj.y), obj.image, [self.master_sprite_group, self.collision_sprite_group],
+                         LAYER["HOUSE_LEVEL_2"])
                 if obj.name == "Table":
-                    Base((obj.x, obj.y), obj.image, self.master_sprite_group,
-                         LAYER["HOUSE_LEVEL_3"])
+                    Base((obj.x, obj.y), obj.image, [self.master_sprite_group, self.collision_sprite_group],
+                         LAYER["MAIN"])
                 if obj.name == "Chairs":
-                    Base((obj.x, obj.y), obj.image, self.master_sprite_group,
-                         LAYER["HOUSE_LEVEL_3"])
+                    Base((obj.x, obj.y), obj.image, [self.master_sprite_group, self.collision_sprite_group],
+                         LAYER["MAIN"])
                 if obj.name == "Counter":
-                    Base((obj.x, obj.y), obj.image, self.master_sprite_group,
-                         LAYER["HOUSE_LEVEL_3"])
+                    Base((obj.x, obj.y), obj.image, [self.master_sprite_group, self.collision_sprite_group],
+                         LAYER["MAIN"])
                 if obj.name == "DisplayShelves":
-                    Base((obj.x, obj.y), obj.image, self.master_sprite_group,
-                         LAYER["HOUSE_LEVEL_3"])
+                    Base((obj.x, obj.y), obj.image, [self.master_sprite_group, self.collision_sprite_group],
+                         LAYER["MAIN"])
                 if obj.name == "Flowerpots":
-                    Base((obj.x, obj.y), obj.image, self.master_sprite_group,
-                         LAYER["HOUSE_LEVEL_3"])
+                    Base((obj.x, obj.y), obj.image, [self.master_sprite_group, self.collision_sprite_group],
+                         LAYER["HOUSE_LEVEL_2"])
 
             # Building Fences
 
             if obj.type == "Fences":
                 if obj.name == "Fences":
-                    Base((obj.x, obj.y), obj.image, self.master_sprite_group,
-                         LAYER["HOUSE_LEVEL_3"])
+                    Base((obj.x, obj.y), obj.image, [self.master_sprite_group, self.collision_sprite_group],
+                         LAYER["MAIN"])
 
             # Building Foliage
 
             if obj.type == "Foliage":
                 if obj.name == "Flowers":
                     Base((obj.x, obj.y), obj.image, self.master_sprite_group,
-                         LAYER["FOLIAGE"])
+                         LAYER["PLANT"])
                 if obj.name == "Mushrooms":
                     Base((obj.x, obj.y), obj.image, self.master_sprite_group,
-                         LAYER["FOLIAGE"])
+                         LAYER["PLANT"])
                 if obj.name == "Hedge":
-                    Base((obj.x, obj.y), obj.image, self.master_sprite_group,
-                         LAYER["FOLIAGE"])
+                    Base((obj.x, obj.y), obj.image, [self.master_sprite_group, self.collision_sprite_group],
+                         LAYER["MAIN"])
                 if obj.name == "Trees":
-                    Base((obj.x, obj.y), obj.image, self.master_sprite_group,
-                         LAYER["FOLIAGE"])
+                    Base((obj.x, obj.y), obj.image, [self.master_sprite_group, self.collision_sprite_group],
+                         LAYER["MAIN"])
+
+            # Setting Up Colliders
+
+            if obj.type == "ColliderClass":
+                if obj.name == "Collider":
+                    Base((obj.x, obj.y), obj.image, [self.master_sprite_group, self.collision_sprite_group],
+                         LAYER["INVISIBLE"])
 
             print(obj.name + " SUCCEEDED")
 
 
         # Draw Player
 
-        self.current_player = Player((640, 360), self.master_sprite_group)
+        self.current_player = Player((640, 360), self.master_sprite_group, self.collision_sprite_group)
 
     def run(self, delta_time):
         self.main_display_surface.fill("Black")
@@ -145,7 +155,7 @@ class CameraGroup(pygame.sprite.Group):
         self.offset.y = player.rect.centery - SCREEN_Y / 2
 
         for layer in LAYER.values():
-            for sprite in self.sprites():
+            for sprite in sorted(self.sprites(),key=lambda sprite: sprite.rect.centery):
                 if sprite.current_layer == layer:
                     offset_rect = sprite.rect.copy()
                     offset_rect.center -= self.offset

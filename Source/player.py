@@ -9,7 +9,7 @@ from timer import *
 
 class Player(pygame.sprite.Sprite):
 
-    def __init__(self, position, group):
+    def __init__(self, position, group, colliders):
         super().__init__(group)
         self.animations = None
         self.load_player_assets()
@@ -38,9 +38,31 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(center=position)
         self.current_layer = LAYER["MAIN"]
 
+        # Collision
+        self.colliders = colliders
+        self.hitbox = self.rect.copy().inflate((-129, -93))
+
         self.move_direction = pygame.math.Vector2(0, 0)
         self.position = pygame.math.Vector2(self.rect.center)
 
+    def collide(self, move_direction):
+        for sprite in self.colliders.sprites():
+            if hasattr(sprite, "hitbox"):
+                if sprite.hitbox.colliderect(self.hitbox):
+                    if move_direction == "X":
+                        if self.move_direction.x > 0:
+                            self.hitbox.right = sprite.hitbox.left
+                        if self.move_direction.x < 0:
+                            self.hitbox.left = sprite.hitbox.right
+                        self.rect.centerx = self.hitbox.centerx
+                        self.position.x = self.hitbox.centerx
+                    if move_direction == "Y":
+                        if self.move_direction.y > 0:
+                            self.hitbox.bottom = sprite.hitbox.top
+                        if self.move_direction.y < 0:
+                            self.hitbox.top = sprite.hitbox.bottom
+                        self.rect.centery = self.hitbox.centery
+                        self.position.y = self.hitbox.centery
     def provide_answer_feedback(self):
         self.showing_answer_card = True
 
@@ -242,10 +264,6 @@ class Player(pygame.sprite.Sprite):
                 else:
                     self.mouse_above_false = False
 
-
-
-
-
             if event.type == pygame.MOUSEWHEEL:
                 self.inventory_slot_selected += event.y
                 if self.inventory_slot_selected < 0:
@@ -258,18 +276,21 @@ class Player(pygame.sprite.Sprite):
             if timer.active:
                 timer.update()
 
-
     def movement(self, delta_time):
         if self.move_direction.magnitude() > 0:
             self.move_direction = self.move_direction.normalize()
 
         # X
         self.position.x += self.move_direction.x * self.speed * delta_time
-        self.rect.centerx = self.position.x
+        self.hitbox.centerx = round(self.position.x)
+        self.rect.centerx = self.hitbox.centerx
+        self.collide("X")
 
         # Y
         self.position.y += self.move_direction.y * self.speed * delta_time
-        self.rect.centery = self.position.y
+        self.hitbox.centery = round(self.position.y)
+        self.rect.centery = self.hitbox.centery
+        self.collide("Y")
 
     def update(self, delta_time):
         self.input()

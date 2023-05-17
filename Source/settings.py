@@ -10,7 +10,7 @@ TILE_SIZE = 64
 
 # Sprite Layers
 LAYER = {
-    "WATER": 0,
+    "INVISIBLE": 0,
     "GROUND": 1,
     "FERTILE_GROUND": 2,
     "DAMP_GROUND": 3,

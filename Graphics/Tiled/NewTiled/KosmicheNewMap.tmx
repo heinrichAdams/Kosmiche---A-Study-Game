@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.1" orientation="orthogonal" renderorder="right-down" width="60" height="40" tilewidth="64" tileheight="64" infinite="0" nextlayerid="12" nextobjectid="1653">
+<map version="1.10" tiledversion="1.10.1" orientation="orthogonal" renderorder="right-down" width="60" height="40" tilewidth="64" tileheight="64" infinite="0" nextlayerid="12" nextobjectid="1902">
  <tileset firstgid="1" source="FarmingTileset.tsx"/>
  <tileset firstgid="309" source="Buildings.tsx"/>
  <tileset firstgid="339" source="Foliage.tsx"/>
@@ -93,10 +93,67 @@
 </data>
  </layer>
  <objectgroup id="8" name="Building_Floors" class="Floor_Group">
-  <object id="1" name="House" type="BuildingFloorPlan" gid="338" x="2648" y="1264" width="969" height="595"/>
-  <object id="2" name="Shop" type="BuildingFloorPlan" gid="326" x="-78" y="628" width="1280" height="720"/>
+  <object id="1" name="House" type="BuildingFloorPlan" gid="338" x="2648" y="1264" width="969" height="595" visible="0"/>
+  <object id="2" name="Shop" type="BuildingFloorPlan" gid="326" x="-78" y="628" width="1280" height="720" visible="0"/>
+  <object id="1845" name="Collider" type="ColliderClass" gid="3" x="2778" y="814.5" width="64" height="64"/>
+  <object id="1877" name="Collider" type="ColliderClass" gid="3" x="839" y="478.833" width="64" height="64"/>
+  <object id="1879" name="Collider" type="ColliderClass" gid="3" x="840" y="414.833" width="64" height="64"/>
+  <object id="1880" name="Collider" type="ColliderClass" gid="3" x="840" y="351.833" width="64" height="64"/>
+  <object id="1881" name="Collider" type="ColliderClass" gid="3" x="839.5" y="289.333" width="64" height="64"/>
+  <object id="1882" name="Collider" type="ColliderClass" gid="3" x="838.5" y="225.333" width="64" height="64"/>
+  <object id="1883" name="Collider" type="ColliderClass" gid="3" x="837" y="181.333" width="64" height="64"/>
+  <object id="1884" name="Collider" type="ColliderClass" gid="3" x="774" y="181.333" width="64" height="64"/>
+  <object id="1885" name="Collider" type="ColliderClass" gid="3" x="711.5" y="181.833" width="64" height="64"/>
+  <object id="1886" name="Collider" type="ColliderClass" gid="3" x="648" y="181.833" width="64" height="64"/>
+  <object id="1887" name="Collider" type="ColliderClass" gid="3" x="584.5" y="181.833" width="64" height="64"/>
+  <object id="1888" name="Collider" type="ColliderClass" gid="3" x="522" y="181.333" width="64" height="64"/>
+  <object id="1889" name="Collider" type="ColliderClass" gid="3" x="508" y="244.333" width="64" height="64"/>
+  <object id="1897" name="Collider" type="ColliderClass" gid="3" x="572.667" y="231" width="64" height="64"/>
+  <object id="1898" name="Collider" type="ColliderClass" gid="3" x="638" y="230.333" width="64" height="64"/>
+  <object id="1899" name="Collider" type="ColliderClass" gid="3" x="700" y="229" width="64" height="64"/>
+  <object id="1900" name="Collider" type="ColliderClass" gid="3" x="764.667" y="227" width="64" height="64"/>
+  <object id="1901" name="Collider" type="ColliderClass" gid="3" x="790" y="228.333" width="64" height="64"/>
+  <object id="1890" name="Collider" type="ColliderClass" gid="3" x="507" y="306.833" width="64" height="64"/>
+  <object id="1891" name="Collider" type="ColliderClass" gid="3" x="507" y="369.333" width="64" height="64"/>
+  <object id="1892" name="Collider" type="ColliderClass" gid="3" x="507.5" y="432.833" width="64" height="64"/>
+  <object id="1893" name="Collider" type="ColliderClass" gid="3" x="518" y="492.833" width="64" height="64"/>
+  <object id="1894" name="Collider" type="ColliderClass" gid="3" x="582.333" y="491.333" width="64" height="64"/>
+  <object id="1895" name="Collider" type="ColliderClass" gid="3" x="646.333" y="491.333" width="64" height="64"/>
+  <object id="1896" name="Collider" type="ColliderClass" gid="3" x="699" y="485.333" width="64" height="64"/>
+  <object id="1878" name="Collider" type="ColliderClass" gid="3" x="818" y="484.333" width="64" height="64"/>
+  <object id="1846" name="Collider" type="ColliderClass" gid="3" x="2778" y="878" width="64" height="64"/>
+  <object id="1871" name="Collider" type="ColliderClass" gid="3" x="2778" y="878" width="64" height="64"/>
+  <object id="1847" name="Collider" type="ColliderClass" gid="3" x="2778" y="942.5" width="64" height="64"/>
+  <object id="1848" name="Collider" type="ColliderClass" gid="3" x="2779" y="1007" width="64" height="64"/>
+  <object id="1849" name="Collider" type="ColliderClass" gid="3" x="2779.5" y="1070.5" width="64" height="64"/>
+  <object id="1850" name="Collider" type="ColliderClass" gid="3" x="2780" y="1135.5" width="64" height="64"/>
+  <object id="1851" name="Collider" type="ColliderClass" gid="3" x="2803" y="1165.5" width="64" height="64"/>
+  <object id="1852" name="Collider" type="ColliderClass" gid="3" x="2863" y="1166" width="64" height="64"/>
+  <object id="1853" name="Collider" type="ColliderClass" gid="3" x="2990.5" y="1168.5" width="64" height="64"/>
+  <object id="1856" name="Collider" type="ColliderClass" gid="3" x="3024" y="1169.5" width="64" height="64"/>
+  <object id="1854" name="Collider" type="ColliderClass" gid="3" x="3068" y="1167.5" width="64" height="64"/>
+  <object id="1855" name="Collider" type="ColliderClass" gid="3" x="3067.5" y="1104.5" width="64" height="64"/>
+  <object id="1857" name="Collider" type="ColliderClass" gid="3" x="3077" y="1067.5" width="64" height="64"/>
+  <object id="1858" name="Collider" type="ColliderClass" gid="3" x="3139.5" y="1053" width="64" height="64"/>
+  <object id="1859" name="Collider" type="ColliderClass" gid="3" x="3199.5" y="1051" width="64" height="64"/>
+  <object id="1860" name="Collider" type="ColliderClass" gid="3" x="3210.5" y="989" width="64" height="64"/>
+  <object id="1861" name="Collider" type="ColliderClass" gid="3" x="3210.5" y="926.5" width="64" height="64"/>
+  <object id="1862" name="Collider" type="ColliderClass" gid="3" x="3211" y="863" width="64" height="64"/>
+  <object id="1863" name="Collider" type="ColliderClass" gid="3" x="3205.5" y="814" width="64" height="64"/>
+  <object id="1864" name="Collider" type="ColliderClass" gid="3" x="3141.5" y="813" width="64" height="64"/>
+  <object id="1865" name="Collider" type="ColliderClass" gid="3" x="3079" y="813" width="64" height="64"/>
+  <object id="1866" name="Collider" type="ColliderClass" gid="3" x="3015" y="813" width="64" height="64"/>
+  <object id="1867" name="Collider" type="ColliderClass" gid="3" x="2951" y="812" width="64" height="64"/>
+  <object id="1868" name="Collider" type="ColliderClass" gid="3" x="2887.5" y="812" width="64" height="64"/>
+  <object id="1869" name="Collider" type="ColliderClass" gid="3" x="2823.5" y="812.5" width="64" height="64"/>
+  <object id="1870" name="Collider" type="ColliderClass" gid="3" x="2824" y="869" width="64" height="64"/>
+  <object id="1872" name="Collider" type="ColliderClass" gid="3" x="2888" y="868.5" width="64" height="64"/>
+  <object id="1873" name="Collider" type="ColliderClass" gid="3" x="2952.5" y="869.5" width="64" height="64"/>
+  <object id="1874" name="Collider" type="ColliderClass" gid="3" x="3017" y="868" width="64" height="64"/>
+  <object id="1875" name="Collider" type="ColliderClass" gid="3" x="3081.5" y="869.5" width="64" height="64"/>
+  <object id="1876" name="Collider" type="ColliderClass" gid="3" x="3147" y="869" width="64" height="64"/>
  </objectgroup>
- <objectgroup id="9" name="Building_FloorObjects" class="FloorFurnitureGroup">
+ <objectgroup id="9" name="Building_FloorObjects" class="FloorFurnitureGroup" visible="0">
   <object id="3" name="Carpets" type="FloorFurniture" gid="318" x="734.5" y="444.5" width="97" height="66"/>
   <object id="4" name="Fireplace" type="FloorFurniture" gid="324" x="798" y="256" width="54" height="103"/>
   <object id="5" name="BookShelves" type="FloorFurniture" gid="317" x="665.5" y="244" width="116" height="89"/>
@@ -105,7 +162,7 @@
   <object id="8" name="NoticeBoards" type="FloorFurniture" gid="336" x="2923.67" y="839.667" width="86" height="54"/>
   <object id="1648" name="NoticeBoards" type="FloorFurniture" gid="336" x="3045" y="839.667" width="86" height="54"/>
  </objectgroup>
- <objectgroup id="7" name="Foliage" class="FoliageGroup">
+ <objectgroup id="7" name="Foliage" class="FoliageGroup" visible="0">
   <object id="69" name="Trees" type="Foliage" gid="346" x="903.449" y="943.369" width="126.216" height="181.092"/>
   <object id="70" name="Trees" type="Foliage" gid="346" x="968.063" y="901.445" width="126.216" height="181.092"/>
   <object id="71" name="Trees" type="Foliage" gid="346" x="1718.73" y="842.466" width="126.216" height="181.092"/>
@@ -1635,7 +1692,7 @@
   <object id="1642" name="Flowers" type="Foliage" gid="339" x="188" y="40" width="32" height="31"/>
   <object id="1643" name="Flowers" type="Foliage" gid="339" x="160" y="30" width="32" height="31"/>
  </objectgroup>
- <objectgroup id="10" name="Building_furniture" class="BuildingFurnitureGroup">
+ <objectgroup id="10" name="Building_furniture" class="BuildingFurnitureGroup" visible="0">
   <object id="10" name="Bed" type="Furniture" gid="315" x="586" y="286.5" width="54" height="92"/>
   <object id="11" name="SideTable" type="Furniture" gid="316" x="563" y="242.5" width="18" height="40"/>
   <object id="12" name="Table" type="Furniture" gid="314" x="586" y="417.5" width="71" height="76"/>
