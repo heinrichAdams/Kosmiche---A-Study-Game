@@ -4,6 +4,7 @@ from player import Player
 from hud import Hud
 from question_dialog import QuestionDialog
 from sprites import Base
+from soil import FarmableGround
 from pytmx.util_pygame import load_pygame
 
 
@@ -15,12 +16,13 @@ class Level:
         self.main_display_surface = pygame.display.get_surface()
         self.master_sprite_group = CameraGroup()
         self.collision_sprite_group = pygame.sprite.Group()
+        self.farmable_ground_layer = FarmableGround(self.master_sprite_group)
         self.setup()
         self.hud = Hud(self.current_player)
         self.question_dialog = QuestionDialog(self.current_player)
 
     def popups(self):
-        if self.current_player.in_dialogue == True:
+        if self.current_player.in_dialogue:
             self.question_dialog.display_dialog()
 
     def setup(self):
@@ -129,7 +131,14 @@ class Level:
 
         # Draw Player
 
-        self.current_player = Player((640, 360), self.master_sprite_group, self.collision_sprite_group)
+        for obj in tmx_data.get_layer_by_name("PlayerSpawn"):
+            if obj.name == "PlayerSpawn":
+                self.current_player = Player((obj.x, obj.y),
+                                             self.master_sprite_group,
+                                             self.collision_sprite_group,
+                                             self.farmable_ground_layer)
+
+
 
     def run(self, delta_time):
         self.main_display_surface.fill("Black")

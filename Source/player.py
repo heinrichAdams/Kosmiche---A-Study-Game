@@ -1,22 +1,25 @@
+import random
+
 import pygame
 import sys
 from settings import *
 from utility import *
 from timer import *
+from soil import *
 
 
 # <<<<<<<<<<<<<<<<<< PLAYER CLASS
 
 class Player(pygame.sprite.Sprite):
 
-    def __init__(self, position, group, colliders):
+    def __init__(self, position, group, colliders, ground_layer):
         super().__init__(group)
         self.animations = None
         self.load_player_assets()
 
         self.current_state = "IDLE_DOWN"
         self.inventory_slot_selected = 0
-        self.inventory = {0: "HOE", 1: "WATER_CAN", 2: "SEED_POTATO", 3: "SEED_SUN", 4: "SEED_PUMPKIN", 5: "",
+        self.inventory = {0: "HOE", 1: "WATER_CAN", 2: "SEED_POTATO", 3: "SEED_SUNFLOWER", 4: "SEED_PUMPKIN", 5: "SEED_BEETROOT",
                           6: "", 7: ""}
         self.mouse_button_down = False
         self.speed = 400
@@ -32,6 +35,7 @@ class Player(pygame.sprite.Sprite):
         self.clicked_on_false = False
         self.clicked_on_true = False
         self.showing_answer_card = False
+        self.random_question = None
 
         self.frame_index = 0
         self.image = self.animations[self.current_state][self.frame_index]
@@ -44,6 +48,7 @@ class Player(pygame.sprite.Sprite):
 
         self.move_direction = pygame.math.Vector2(0, 0)
         self.position = pygame.math.Vector2(self.rect.center)
+        self.ground_layer = ground_layer
 
     def collide(self, move_direction):
         for sprite in self.colliders.sprites():
@@ -75,11 +80,10 @@ class Player(pygame.sprite.Sprite):
         self.clicked_on_false = False
 
     def use_item(self):
-
         # USE SEED
 
         if not self.inventory[self.inventory_slot_selected].find("SEED"):
-            print(f"Trying to plant {self.inventory[self.inventory_slot_selected]}")
+            self.ground_layer.plant_seed(self.position, self.inventory[self.inventory_slot_selected])
 
     def load_player_assets(self):
         self.animations = {"UP": [], "DOWN": [], "LEFT": [], "RIGHT": [],
@@ -116,6 +120,18 @@ class Player(pygame.sprite.Sprite):
                 self.current_state = "HOE_LEFT"
             elif self.current_state == "IDLE_RIGHT":
                 self.current_state = "HOE_RIGHT"
+            self.ground_layer.is_hit(self.position)
+            harvested_item = self.ground_layer.harvest_plant(self.position)
+            if not harvested_item == None:
+                self.in_dialogue = True
+                self.random_question = random.randint(0, 3)
+                print(f"In Dialogue = {self.in_dialogue}")
+                print("Question Dialogue pops up...")
+                for slot in self.inventory:
+                    if slot == "":
+                        slot = harvested_item
+                        return
+
         else:
             if self.current_state == "HOE_UP":
                 self.current_state = "IDLE_UP"
@@ -137,6 +153,7 @@ class Player(pygame.sprite.Sprite):
                 self.current_state = "WATER_LEFT"
             elif self.current_state == "IDLE_RIGHT":
                 self.current_state = "WATER_RIGHT"
+            self.ground_layer.water_plant(self.position)
         else:
             if self.current_state == "WATER_UP":
                 self.current_state = "IDLE_UP"
@@ -183,10 +200,6 @@ class Player(pygame.sprite.Sprite):
                     self.current_state = "RIGHT"
                     self.move_direction.x = 1
 
-                if event.key == pygame.K_SPACE:
-                    self.in_dialogue = True
-                    print(f"In Dialogue = {self.in_dialogue}")
-                    print("Question Dialogue pops up...")
 
             if event.type == pygame.KEYUP and not self.timer_list["USE_ITEM"].active:
                 # UP
@@ -284,13 +297,13 @@ class Player(pygame.sprite.Sprite):
         self.position.x += self.move_direction.x * self.speed * delta_time
         self.hitbox.centerx = round(self.position.x)
         self.rect.centerx = self.hitbox.centerx
-        self.collide("X")
+        #self.collide("X")
 
         # Y
         self.position.y += self.move_direction.y * self.speed * delta_time
         self.hitbox.centery = round(self.position.y)
         self.rect.centery = self.hitbox.centery
-        self.collide("Y")
+        #self.collide("Y")
 
     def update(self, delta_time):
         self.input()

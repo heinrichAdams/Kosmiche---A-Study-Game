@@ -40,6 +40,7 @@ class Hud:
         self.potato_seed_image = pygame.image.load("../Graphics/UI/HUD/ITEM_POTATO_SEED/0.png").convert_alpha()
         self.sun_seed_image = pygame.image.load("../Graphics/UI/HUD/ITEM_SUN_SEED/0.png").convert_alpha()
         self.pumpkin_seed_image = pygame.image.load("../Graphics/UI/HUD/ITEM_PUMPKIN_SEED/0.png").convert_alpha()
+        self.beetroot_seed_image = pygame.image.load("../Graphics/UI/HUD/ITEM_BEETROOT_SEED/0.png").convert_alpha()
 
     def display_inventory(self):
         self.hud_surface.blit(self.main_gui_overlay, (0, 0))
@@ -52,10 +53,12 @@ class Hud:
                 self.hud_surface.blit(self.water_can_image, self.inventory_slot_positions[index])
             elif slot == "SEED_POTATO":
                 self.hud_surface.blit(self.potato_seed_image, self.inventory_slot_positions[index])
-            elif slot == "SEED_SUN":
+            elif slot == "SEED_SUNFLOWER":
                 self.hud_surface.blit(self.sun_seed_image, self.inventory_slot_positions[index])
             elif slot == "SEED_PUMPKIN":
                 self.hud_surface.blit(self.pumpkin_seed_image, self.inventory_slot_positions[index])
+            elif slot == "SEED_BEETROOT":
+                self.hud_surface.blit(self.beetroot_seed_image, self.inventory_slot_positions[index])
             else:
                 self.hud_surface.blit(self.inventory_slot_empty_image, self.inventory_slot_positions[index])
             if self.player.inventory_slot_selected == index:

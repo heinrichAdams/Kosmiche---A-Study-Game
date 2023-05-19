@@ -1,3 +1,5 @@
+import random
+
 import pygame
 from utility import *
 from settings import *
@@ -7,6 +9,7 @@ from settings import *
 
 class QuestionDialog:
     def __init__(self, player):
+        self.question = None
         self.display_surface = pygame.display.get_surface()
         self.false_button_image = None
         self.false_button_highlighted_image = None
@@ -14,9 +17,9 @@ class QuestionDialog:
         self.true_button_highlighted_image = None
         self.correct_image = None
         self.incorrect_image = None
-        self.question_card_list = {"0": []}
+        self.question_card_list = {"0": [], "1": [], "2": [], "3": []}
 
-        # Randomize Question Cards
+
         self.temp_static_answer = parse_txt("../Graphics/UI/QUESTION_DIALOG/QUESTION_CARDS/0_ans.txt")
 
         # Correct Check
@@ -42,35 +45,32 @@ class QuestionDialog:
             "../Graphics/UI/QUESTION_DIALOG/TRUE_BUTTON/0.png").convert_alpha()
         self.true_button_highlighted_image = pygame.image.load(
             "../Graphics/UI/QUESTION_DIALOG/TRUE_BUTTON_HIGHLIGHTED/0.png").convert_alpha()
-        self.correct_image = pygame.image.load(
-            "../Graphics/UI/QUESTION_DIALOG/CORRECT/0.png").convert_alpha()
-        self.incorrect_image = pygame.image.load(
-            "../Graphics/UI/QUESTION_DIALOG/INCORRECT/0.png").convert_alpha()
 
 
 
     def display_dialog(self):
         # question card
+        self.question = self.player.random_question
         if self.player.clicked_on_false == False and self.player.clicked_on_true == False:
-            self.display_surface.blit(self.question_card_list["0"][0], QUESTION_CARD)
+            self.display_surface.blit(self.question_card_list[str(self.question)][0], QUESTION_CARD)
 
         # true button
         if self.player.mouse_above_true:
             self.display_surface.blit(self.true_button_highlighted_image, TRUE_SELECTED)
             # answer card
             if self.player.clicked_on_true and self.temp_static_answer == "true":
-                self.display_surface.blit(self.question_card_list["0"][1], QUESTION_CARD)
+                self.display_surface.blit(self.question_card_list[str(self.question)][1], QUESTION_CARD)
             elif self.player.clicked_on_true and self.temp_static_answer != "true":
-                self.display_surface.blit(self.question_card_list["0"][2], QUESTION_CARD)
+                self.display_surface.blit(self.question_card_list[str(self.question)][2], QUESTION_CARD)
 
         # false button
         if self.player.mouse_above_false:
             self.display_surface.blit(self.false_button_highlighted_image, FALSE_SELECTED)
             # answer card
             if self.player.clicked_on_false and self.temp_static_answer == "false":
-                self.display_surface.blit(self.question_card_list["0"][1], QUESTION_CARD)
+                self.display_surface.blit(self.question_card_list[str(self.question)][1], QUESTION_CARD)
             elif self.player.clicked_on_false and self.temp_static_answer != "false":
-                self.display_surface.blit(self.question_card_list["0"][2], QUESTION_CARD)
+                self.display_surface.blit(self.question_card_list[str(self.question)][2], QUESTION_CARD)
 
 
 
